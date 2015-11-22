@@ -13,7 +13,8 @@
 </div>
 
 <div class="demo-updates notification mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-desktop" v-for="item in items">
-  <div class="cover mdl-card__title mdl-card--expand mdl-color--teal-300" :style="background()">
+  <div class="cover mdl-card__title mdl-card--expand mdl-color--grey-100">
+    {{{item.sport | background}}}
   </div>
   <div class="mdl-card__supporting-text mdl-color-text--grey-600">
     Your team <b>{{item.team}}</b> has a new match to play. <br>
@@ -28,9 +29,8 @@
 </template>
 
 <script>
-const sportMap = {
-  football: 'http://acaa.ca/genrel/Images/SoccerWebsite.jpg'
-}
+
+const sportsMap = require('../services/sports.js');
 
 export default {
   methods: {
@@ -43,7 +43,7 @@ export default {
     }
   }, filters: {
     background(sport) {
-      return sportMap[sport]
+      return sportsMap[sport].image;
     }
   },
   data () {
@@ -54,11 +54,11 @@ export default {
           date: 'September 15 2015',
           team: 'The footballers'
         }, {
-          sport: 'swiming',
+          sport: 'skiCross',
           date: 'September 15 2015',
           team: 'pythonist'
         }, {
-          sport: 'tennis',
+          sport: 'tennisTable',
           date: 'September 25 2015',
           team: 'pythonist'
         }, {
@@ -66,11 +66,11 @@ export default {
           date: 'September 15 2015',
           team: 'The footballers'
         }, {
-          sport: 'swiming',
+          sport: 'basket',
           date: 'September 15 2015',
           team: 'pythonist'
         }, {
-          sport: 'tennis',
+          sport: 'badminton',
           date: 'September 25 2015',
           team: 'pythonist'
         }

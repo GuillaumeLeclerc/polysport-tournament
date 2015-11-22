@@ -10,28 +10,31 @@ module.exports = {
     filename: 'build.js'
   },
   module: {
-    loaders: [
-      {
-        test: /\.sass$/,
-        loader: 'sass'
-      }, {
-        test: /\.vue$/,
-        loader: 'vue'
-      }, 
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel"},
-      {
-        // edit this for additional asset file types
-        test: /\.(png|jpg|gif)$/,
-        loader: 'file?name=[name].[ext]?[hash]'
-      }
-    ]
+    loaders: [{
+      test: /\.sass$/,
+      loader: 'sass'
+    }, {
+      test: /\.vue$/,
+      loader: 'vue'
+    }, {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel"
+    }, {
+      // edit this for additional asset file types
+      test: /\.(png|jpg|gif)$/,
+      loader: 'file?name=[name].[ext]?[hash]'
+    }, {
+      test: /\.svg$/,
+      loader: 'svg-inline'
+    }]
   },
   // example: if you wish to apply custom babel options
   // instead of using vue-loader's default:
-    babel: {
-      presets: ['es2015', 'stage-0'],
-      plugins: ['transform-runtime']
-    }
+  babel: {
+    presets: ['es2015', 'stage-0'],
+    plugins: ['transform-runtime']
+  }
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -41,13 +44,13 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin()
-  ]
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
+        }),
+        new webpack.optimize.OccurenceOrderPlugin()
+          ]
 } else {
   module.exports.devtool = '#source-map'
 }

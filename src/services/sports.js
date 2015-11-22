@@ -1,18 +1,19 @@
 /* vim: set softtabstop=2 shiftwidth=2 expandtab : */
+
 module.exports =  {
+  'tennisTable': {
+    image: require('!svg-inline!../assets/sports/banniere_tennistable.svg')
+  },
+  'skiCross': {
+    image: require('!svg-inline!../assets/sports/banniere_skicross.svg')
+  },
   'football': {
-    image: 'toto.jpg'
+    image: require('!svg-inline!../assets/sports/banniere_CHULfoot.svg')
   },
-  'footballr2j': {
-    image: 'toto.jpg'
+  'basket': {
+    image: require('!svg-inline!../assets/sports/banniere_CHULbasket.svg')
   },
-  'football3': {
-    image: 'toto.jpg'
-  },
-  'football4': {
-    image: 'toto.jpg'
-  },
-  'tennis': {
-    image: 'toto.jpg'
+  'badminton': {
+    image: require('!svg-inline!../assets/sports/banniere_badminton.svg')
   }
 }
