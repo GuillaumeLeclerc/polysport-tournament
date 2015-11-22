@@ -20,7 +20,7 @@
     <b>{{item.name}}</b>
   </div>
   <div class="mdl-card__actions mdl-card--border mdl-grid date-container">
-    <a href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons" role="presentation">date_range</i> Details</a> 
+    <a v-link="{name: 'tournamentDetails', params: {id: item.id}}" href="#" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><i class="material-icons" role="presentation">date_range</i> Details</a> 
     <div class="mdl-layout-spacer"></div>
     <span class="date mdl-color-text--grey-700">June, 15th 2015</span>
   </div>

@@ -5,6 +5,7 @@ var VueRouter = require('vue-router');
 
 import Notifications from './components/notifications.vue'
 import TournamentList from './components/tournamentList.vue'
+import TournamentDetails from './components/tournamentDetails.vue'
 
 Vue.config.debug = true;
 Vue.use(VueRouter);
@@ -35,6 +36,15 @@ router.map({
     '/tournaments': {
       name: 'tournamentList',
       component: Vue.extend(TournamentList),
+    },
+    '/tournament/:id': {
+      name: 'tournamentDetails',
+      component: Vue.extend({
+        template: '<comp :id="$route.params.id"></comp>',
+        components: {
+          comp: TournamentDetails
+        }
+      }),
     }
 })
 
