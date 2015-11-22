@@ -33,15 +33,7 @@
 const sportsMap = require('../services/sports.js');
 
 export default {
-  methods: {
-    background(a) {
-      console.log("called");
-      console.log(a);
-      return {
-        backgroundImage: 'url(' + sportMap['football']  + ')'
-      }
-    }
-  }, filters: {
+   filters: {
     background(sport) {
       return sportsMap[sport].image;
     }
