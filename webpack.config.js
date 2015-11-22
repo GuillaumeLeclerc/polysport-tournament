@@ -1,3 +1,5 @@
+/* vim: set softtabstop=2 shiftwidth=2 expandtab : */
+
 var webpack = require('webpack')
 
 module.exports = {
@@ -10,9 +12,13 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.sass$/,
+        loader: 'sass'
+      }, {
         test: /\.vue$/,
         loader: 'vue'
-      },
+      }, 
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel"},
       {
         // edit this for additional asset file types
         test: /\.(png|jpg|gif)$/,
@@ -22,10 +28,10 @@ module.exports = {
   },
   // example: if you wish to apply custom babel options
   // instead of using vue-loader's default:
-  babel: {
-    presets: ['es2015', 'stage-0'],
-    plugins: ['transform-runtime']
-  }
+    babel: {
+      presets: ['es2015', 'stage-0'],
+      plugins: ['transform-runtime']
+    }
 }
 
 if (process.env.NODE_ENV === 'production') {
