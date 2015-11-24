@@ -44,6 +44,7 @@ export default {
     },
     ready() {
         componentHandler.upgradeAllRegistered();
+        window.scrollTo(0,1);
     }
 }
 </script>
