@@ -76,8 +76,10 @@ export default {
 @import '../../node_modules/sass-flex-mixin/flex.scss';
 .notification {
   .cover {
-    background-size: cover;
-    background-position: center center;
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .date-container {
