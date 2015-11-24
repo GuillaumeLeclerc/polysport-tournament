@@ -52,11 +52,10 @@ router.redirect({
   '*': '/notifications'
 });
 
-router.beforeEach(() => {
-  document.querySelector('.mdl-layout__drawer').addEventListener('click', function () {
+router.afterEach(({a, b}) => {
+  console.log('called');
     document.querySelector('.mdl-layout__obfuscator').classList.remove('is-visible');
-    this.classList.remove('is-visible');
-  }, false);
+    document.querySelector('.mdl-layout__drawer').classList.remove('is-visible');
 });
 
 // Now we can start the app!
