@@ -29,5 +29,36 @@ module.exports = [{
       scores: [5, 0],
       points: [2, 0]
     }]
+  ], finalTree: [
+    [{
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    }], [{
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    },{
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    }], [{
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    }, {
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    }, {
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    }, {
+      teams: ['Les rigolos', 'Les nuls'],
+      scores: [5, 0],
+      points: [2, 0]
+    }]
   ]
+
 }]
