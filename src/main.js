@@ -52,6 +52,13 @@ router.redirect({
   '*': '/notifications'
 });
 
+router.beforeEach(() => {
+  document.querySelector('.mdl-layout__drawer').addEventListener('click', function () {
+    document.querySelector('.mdl-layout__obfuscator').classList.remove('is-visible');
+    this.classList.remove('is-visible');
+  }, false);
+});
+
 // Now we can start the app!
 // The router will create an instance of App and mount to
 // the element matching the selector #app.
