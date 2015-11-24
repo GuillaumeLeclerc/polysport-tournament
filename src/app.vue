@@ -41,6 +41,9 @@ export default {
         hop (st) {
             return st.toUpperCase();
         }
+    },
+    ready() {
+        componentHandler.upgradeAllRegistered();
     }
 }
 </script>
