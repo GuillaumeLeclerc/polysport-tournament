@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
 
 @import '../../node_modules/sass-flex-mixin/flex.scss';
 .avatar {
