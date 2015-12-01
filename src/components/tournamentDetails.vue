@@ -10,13 +10,21 @@
   </div>
 </div>
 <div v-if="mode === 'tree'" class="demo-updates notification mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop""group in tournament.groupStats">
-  <div v-for="round in tournament.finalTree">
-    <h1>Round {{$index + 1}}</h1>
-    <div v-for="match in round">
-      <h2>Match {{$index + 1}}</h2>
-      {{match | json}}
-    </div>
-  </div>
+  <table class="final-tree truncate">
+    <thead>
+      <tr>
+        <th class="mdl-color-text--white mdl-color--primary" v-for="t in bracketTitle">{{t}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="r in bracketGrid">
+        <td v-for="c in r" class={{c.type}}>  
+          <div v-if="c.type == 'team1' || c.type == 'team2'">{{c.name}}</div>
+          <div v-if="c.type == 'score1' || c.type == 'score2'">{{c.score}}</div>
+        </td>
+      </tr>
+      </tbody>
+  </table>
 </div>
 
 
@@ -63,6 +71,128 @@ export default {
     return {
       mode: 'groups',
       tournament: [],
+    }
+  },
+  computed:{
+    bracketTitle: function() {
+      const allTournaments = require('../services/tournaments.js');
+      const tournament = _.find(allTournaments, {id: parseInt(this.id)});
+      const tree = tournament.finalTree;
+
+      var grid = [];
+      var rounds = tree.length;
+
+      for(var i = 0; i<rounds; i++)
+      {
+          grid.push('Round ' + (i+1));
+          grid.push('');
+          if(i==rounds-1)
+          {
+            continue;
+          }
+
+          
+          grid.push('');
+          grid.push('');
+      }
+
+      return grid;
+    },
+    bracketGrid: function() {
+      const allTournaments = require('../services/tournaments.js');
+      const tournament = _.find(allTournaments, {id: parseInt(this.id)});
+      const tree = tournament.finalTree;
+
+      var rounds = tree.length;
+      var byes;
+
+      if(tree[rounds-1].length == tree[rounds-2].length){
+        byes = true;
+      }else{
+        byes = false;
+      }
+
+      var rows = Math.pow(2,tree[rounds-1].length);
+      var cols = rounds*4 - 2;
+      var grid = []
+      
+      for(var i = 0; i < rows; i++)
+      {
+        var row = [];
+
+        for(var j = 0; j < cols; j++)
+        {
+          row.push({
+            type: '',
+            name: '',
+            score: 'TBD',
+            nbRounds: rounds
+          });
+        }
+        grid.push(row);
+      }
+
+      var colIndex = -1;
+      for(var i = rounds - 1; i >= 0; i--)
+      {
+        var nbMatch = tree[i].length;
+        var round = tree[i];
+        var stepIndex = (rows / nbMatch)/2;
+        console.log(stepIndex);
+        var rowIndex = -1;
+        
+        for(var j = 0; j < nbMatch; j++)
+        {
+          if(stepIndex > rows)
+          {
+            continue;
+          }
+          rowIndex += stepIndex;
+          if(colIndex >= 0)
+          {
+            if(byes==false || colIndex>3)
+            {
+              grid[rowIndex][colIndex].type = 'left_bottom';
+              grid[rowIndex+1][colIndex].type = 'left_top';
+              
+            }else
+            {
+              grid[rowIndex][colIndex].type = 'bottom';
+              grid[rowIndex+1][colIndex].type = 'top';
+            }
+
+            for(var k = -stepIndex/2 + 1; k < stepIndex/2 + 1; k++)
+              {
+                if(k!=0 && k!=1 )
+                {
+                  grid[rowIndex+k][colIndex].type = 'left';
+                }
+              }
+          }
+          grid[rowIndex][colIndex+1].type = 'team1';
+          grid[rowIndex+1][colIndex+1].type = 'team2';
+          grid[rowIndex][colIndex+1].name = round[j].teams[0];
+          grid[rowIndex+1][colIndex+1].name = round[j].teams[1];
+
+          grid[rowIndex][colIndex+2].type = 'score1';
+          grid[rowIndex+1][colIndex+2].type = 'score2';
+          grid[rowIndex][colIndex+2].score = String(round[j].scores[0]);
+          grid[rowIndex+1][colIndex+2].score = String(round[j].scores[1]);
+
+          if(colIndex + 3 < cols)
+          {
+            grid[rowIndex][colIndex+3].type = 'bottom';
+            grid[rowIndex+1][colIndex+3].type = 'top';
+          }
+
+         rowIndex += stepIndex;
+        
+
+        }
+        colIndex += 4;
+      }
+
+      return grid;
     }
   },
   props: ['id'],
@@ -125,6 +255,81 @@ export default {
 
   .group-stats {
     width:100%;
+  }
+
+  .final-tree{
+    width:100%;
+    margin: 0 auto;
+    padding: 0px;
+    border-spacing: 0;
+  }
+
+  .truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  .score1{
+    text-align: center;
+    color: white;
+    background-color: grey;
+    width: 30px;
+    border-top-right-radius: 5px;
+  }
+
+  .score2{
+    text-align: center;
+    color: white;
+    background-color: grey;
+    width: 30px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .team1{
+    border: solid black;
+    border-width: 0px 1px 0px 0px;
+    background-color: lightgrey;
+    padding: 5px;
+    border-top-left-radius: 5px;
+  }
+
+  .team2{
+    border: solid black;
+    border-width: 0px 1px 0px 0px;
+    background-color: lightgrey;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  .top{
+    border: solid black;
+    border-width: 1px 0px 0px 0px;
+    width: 3%;
+  }
+
+  .bottom{
+    border: solid black;
+    border-width: 0px 0px 1px 0px;
+    width: 3%;
+  }
+
+  .left{
+    border: solid black;
+    border-width: 0px 0px 0px 2px;
+    width: 3%;
+  }
+
+  .left_top{
+    border: solid black;
+    border-width: 1px 0px 0px 2px;
+    width: 3%;
+  }
+
+  .left_bottom{
+    border: solid black;
+    border-width: 0px 0px 1px 2px;
+    width: 3%;
   }
 }
 </style>
