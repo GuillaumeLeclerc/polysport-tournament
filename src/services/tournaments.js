@@ -31,50 +31,54 @@ module.exports = [{
     }]
   ], finalTree: [
     [{
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
-    }], [{
-      teams: ['Les rigolos', 'Les nuls'],
-      scores: [5, 0],
-      points: [2, 0]
-    },{
-      teams: ['Les rigolos', 'Les nuls'],
-      scores: [5, 0],
-      points: [2, 0]
-    }], [{
-      teams: ['Les rigolos', 'Les nuls'],
+    }],
+    [{
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }, {
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
+      scores: [5, 0],
+      points: [2, 0]
+    }],
+    [{
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }, {
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }, {
-      teams: ['Les rigolos', 'Les nuls'],
-      scores: [5, 0],
-      points: [2, 0]
-    }], [{
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }, {
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
+      scores: [5, 0],
+      points: [2, 0]
+    }],
+    [{
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }, {
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }, {
-      teams: ['Les rigolos', 'Les nuls'],
+      teams: ['', ''],
+      scores: [5, 0],
+      points: [2, 0]
+    }, {
+      teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }]
   ]
 
-}]
+},
+]

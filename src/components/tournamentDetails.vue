@@ -106,13 +106,17 @@ export default {
       var rounds = tree.length;
       var byes;
 
-      if(tree[rounds-1].length == tree[rounds-2].length){
+      if(rounds > 1 && tree[rounds-1].length == tree[rounds-2].length){
         byes = true;
       }else{
         byes = false;
       }
-
-      var rows = Math.pow(2,tree[rounds-1].length);
+      var rows;
+      if(byes){
+        rows = Math.pow(2,tree[rounds-1].length);
+      }else{
+        rows = Math.pow(2,tree[rounds-1].length+1);
+      }
       var cols = rounds*4 - 2;
       var grid = []
       
@@ -125,7 +129,7 @@ export default {
           row.push({
             type: '',
             name: '',
-            score: 'TBD',
+            score: '?',
             nbRounds: rounds
           });
         }
@@ -174,10 +178,15 @@ export default {
           grid[rowIndex][colIndex+1].name = round[j].teams[0];
           grid[rowIndex+1][colIndex+1].name = round[j].teams[1];
 
+
           grid[rowIndex][colIndex+2].type = 'score1';
           grid[rowIndex+1][colIndex+2].type = 'score2';
-          grid[rowIndex][colIndex+2].score = String(round[j].scores[0]);
-          grid[rowIndex+1][colIndex+2].score = String(round[j].scores[1]);
+
+          if(round[j].teams[0] != '' && round[j].teams[1] != '' && round[j].scores[0]>=0 && round[j].scores[1]>=0)
+          {
+            grid[rowIndex][colIndex+2].score = String(round[j].scores[0]);
+            grid[rowIndex+1][colIndex+2].score = String(round[j].scores[1]);
+          }
 
           if(colIndex + 3 < cols)
           {
@@ -275,6 +284,8 @@ export default {
     color: white;
     background-color: grey;
     width: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-top-right-radius: 5px;
   }
 
@@ -283,6 +294,8 @@ export default {
     color: white;
     background-color: grey;
     width: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom-right-radius: 5px;
   }
 
@@ -324,12 +337,14 @@ export default {
     border: solid black;
     border-width: 1px 0px 0px 2px;
     width: 3%;
+    border-top-left-radius: 5px;
   }
 
   .left_bottom{
     border: solid black;
     border-width: 0px 0px 1px 2px;
     width: 3%;
+    border-bottom-left-radius: 5px;
   }
 }
 </style>
