@@ -13,7 +13,7 @@
   <table class="final-tree truncate">
     <thead>
       <tr>
-        <th class="mdl-color-text--white mdl-color--primary" v-for="t in bracketTitle">{{t}}</th>
+        <th class="tree-title mdl-color-text--white mdl-color--primary" v-for="t in bracketTitle">{{t}}</th>
       </tr>
     </thead>
     <tbody>
@@ -79,12 +79,25 @@ export default {
       const tournament = _.find(allTournaments, {id: parseInt(this.id)});
       const tree = tournament.finalTree;
 
+      var byes;
+      if(rounds > 2 && tree[rounds-1].length == tree[rounds-2].length){
+        byes = true;
+      }else{
+        byes = false;
+      }
       var grid = [];
       var rounds = tree.length;
 
       for(var i = 0; i<rounds; i++)
       {
-          grid.push('Round ' + (i+1));
+          if(byes && i==0){
+            grid.push('Round ' + (i+1));
+          }else if(i<rounds-1){
+            grid.push('1/'+ Math.pow(2,rounds-i-1)+' Final');
+          }else{
+            grid.push('Final');
+          }
+          
           grid.push('');
           if(i==rounds-1)
           {
@@ -106,17 +119,17 @@ export default {
       var rounds = tree.length;
       var byes;
 
-      if(rounds > 1 && tree[rounds-1].length == tree[rounds-2].length){
+      if(rounds > 2 && tree[rounds-1].length == tree[rounds-2].length){
         byes = true;
       }else{
         byes = false;
       }
-      var rows;
-      if(byes){
-        rows = Math.pow(2,tree[rounds-1].length);
-      }else{
-        rows = Math.pow(2,tree[rounds-1].length+1);
+      var rows = tree[rounds-1].length*4;
+      
+      if(rows < 16){
+        rows = 16;
       }
+
       var cols = rounds*4 - 2;
       var grid = []
       
@@ -126,12 +139,21 @@ export default {
 
         for(var j = 0; j < cols; j++)
         {
-          row.push({
-            type: '',
-            name: '',
-            score: '?',
-            nbRounds: rounds
-          });
+          if(i==0)
+          {
+            row.push({
+              type: 'first-tree-row',
+              name: '',
+              score: '?',
+              nbRounds: rounds});
+            }else{
+              row.push({
+              type: '',
+              name: '',
+              score: '?',
+              nbRounds: rounds});
+            }
+          
         }
         grid.push(row);
       }
@@ -139,7 +161,12 @@ export default {
       var colIndex = -1;
       for(var i = rounds - 1; i >= 0; i--)
       {
-        var nbMatch = tree[i].length;
+        var nbMatch;
+        if(i==0) {
+          nbMatch = 1;
+        }else {
+          nbMatch = tree[i].length;
+        }
         var round = tree[i];
         var stepIndex = (rows / nbMatch)/2;
         console.log(stepIndex);
@@ -194,12 +221,25 @@ export default {
             grid[rowIndex+1][colIndex+3].type = 'top';
           }
 
-         rowIndex += stepIndex;
+          rowIndex += stepIndex;
         
 
         }
+
+        if(i==0){
+          var thirdIndex = rows / 2 + 4;
+          grid[thirdIndex][colIndex+1].type = 'team1';
+          grid[thirdIndex+1][colIndex+1].type = 'team2';
+          grid[thirdIndex][colIndex+1].name = round[1].teams[0];
+          grid[thirdIndex+1][colIndex+1].name = round[1].teams[1];
+
+
+          grid[thirdIndex][colIndex+2].type = 'score1';
+          grid[thirdIndex+1][colIndex+2].type = 'score2';
+        }
         colIndex += 4;
       }
+
 
       return grid;
     }
@@ -273,17 +313,26 @@ export default {
     border-spacing: 0;
   }
 
+  .first-tree-row{
+    height: 15px;
+  }
+
+  .tree-title{
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
   .truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .score1{
     text-align: center;
     color: white;
     background-color: grey;
-    width: 30px;
+    width: 4%;
     padding-top: 5px;
     padding-bottom: 5px;
     border-top-right-radius: 5px;
@@ -293,7 +342,7 @@ export default {
     text-align: center;
     color: white;
     background-color: grey;
-    width: 30px;
+    width: 4%;
     padding-top: 5px;
     padding-bottom: 5px;
     border-bottom-right-radius: 5px;
@@ -305,6 +354,7 @@ export default {
     background-color: lightgrey;
     padding: 5px;
     border-top-left-radius: 5px;
+    width: 15%;
   }
 
   .team2{
@@ -313,6 +363,7 @@ export default {
     background-color: lightgrey;
     padding: 5px;
     border-bottom-left-radius: 5px;
+    width: 15%;
   }
 
   .top{

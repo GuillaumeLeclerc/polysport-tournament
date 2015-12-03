@@ -34,42 +34,12 @@ module.exports = [{
       teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
-    }],
-    [{
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
     }, {
       teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
     }],
     [{
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
-    }, {
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
-    }, {
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
-    }, {
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
-    }],
-    [{
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
-    }, {
-      teams: ['', ''],
-      scores: [5, 0],
-      points: [2, 0]
-    }, {
       teams: ['', ''],
       scores: [5, 0],
       points: [2, 0]
